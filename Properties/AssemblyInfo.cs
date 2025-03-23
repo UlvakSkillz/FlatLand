@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: MelonInfo(typeof(main), "FlatLand", "1.6.0", "UlvakSkillz", "https://thunderstore.io/c/rumble/p/UlvakSkillz/FlatLand/")]
+[assembly: MelonInfo(typeof(main), "FlatLand", "1.6.1", "UlvakSkillz", "https://thunderstore.io/c/rumble/p/UlvakSkillz/FlatLand/")]
 [assembly: MelonGame("Buckethead Entertainment", "RUMBLE")]
 [assembly: MelonColor(255, 195, 0, 255)]
 [assembly: MelonAuthorColor(255, 195, 0, 255)]

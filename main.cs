@@ -25,14 +25,14 @@ namespace FlatLand
         private List<GameObject> DisabledDDOLGameObjects = new List<GameObject>();
         private GameObject landParent, plane, measureParent, flatLandParent2, matchmaker, regionBoard;
         UI UI = UI.instance;
-        private Mod FlatLand = new Mod();
+        public static Mod FlatLand = new Mod();
         private int size;
         private bool loadMatchmaker, showMeasurements, darkMode, autoLoad;
 
         public override void OnLateInitializeMelon()
         {
             FlatLand.ModName = "FlatLand";
-            FlatLand.ModVersion = "1.6.0";
+            FlatLand.ModVersion = "1.6.2";
             FlatLand.SetFolder("FlatLand");
             FlatLand.AddToList("Map Size", 125, "Determins the size of the FlatLand", new Tags { });
             FlatLand.AddToList("Have Matchmaker", false, 0, "Loads a Matchmaker into FlatLand", new Tags { });
@@ -54,22 +54,18 @@ namespace FlatLand
             autoLoad = (bool)FlatLand.Settings[4].SavedValue;
             UI.instance.UI_Initialized += UIInit;
             Calls.onMapInitialized += SceneInit;
-            dontDisableGameObject.Add("[bHaptics]");
             dontDisableGameObject.Add("LanguageManager");
             dontDisableGameObject.Add("PhotonMono");
             dontDisableGameObject.Add("Game Instance");
             dontDisableGameObject.Add("Timer Updater");
-            dontDisableGameObject.Add("SteamManager");
-            dontDisableGameObject.Add("AnalyticsContainer");
             dontDisableGameObject.Add("PlayFabHttp");
+            dontDisableGameObject.Add("LIV");
             dontDisableGameObject.Add("UniverseLibCanvas");
             dontDisableGameObject.Add("UE_Freecam");
-            dontDisableGameObject.Add("GymPostEffects");
+            dontDisableGameObject.Add("--------------SCENE--------------");
+            dontDisableGameObject.Add("--------------LOGIC--------------");
             dontDisableGameObject.Add("!ftraceLightmaps");
             dontDisableGameObject.Add("VoiceLogger");
-            dontDisableGameObject.Add("--------------SCENE--------------");
-            dontDisableGameObject.Add("Steam Audio Manager Settings");
-            dontDisableGameObject.Add("--------------LOGIC--------------");
             dontDisableGameObject.Add("Player Controller(Clone)");
             dontDisableGameObject.Add("Health");
         }
@@ -179,7 +175,7 @@ namespace FlatLand
                         MelonCoroutines.Start(AutoLoad(currentScene));
                     }
                 }
-                catch { }
+                catch {  }
             }
         }
 
@@ -188,7 +184,7 @@ namespace FlatLand
             yield return new WaitForSeconds(5f);
             if (scene == currentScene)
             {
-                MelonCoroutines.Start(ToFlatLandPressed());
+                buttonToSwaptoFlatLand.transform.GetChild(0).gameObject.GetComponent<InteractionButton>().RPC_OnPressed();
             }
             yield break;
         }
@@ -268,19 +264,16 @@ namespace FlatLand
                 }
                 else if (temp.name == "--------------SCENE--------------")
                 {
-                    for(int i = 0;i < temp.transform.GetChildCount(); i++)
+                    temp.transform.GetChild(4).GetChild(1).position = new Vector3(6.84f, 4.3841f, 1.0968f);
+                    temp.transform.GetChild(4).GetChild(1).localRotation = Quaternion.Euler(58.2924f, 189.6045f, 292.3752f);
+                    for (int i = 0;i < temp.transform.GetChildCount(); i++)
                     {
                         if (i == 4)
                         {
                             for (int j = 0; j < temp.transform.GetChild(4).childCount; j++)
                             {
-                                if (j == 1)
-                                {
-                                    temp.transform.GetChild(4).GetChild(1).position = new Vector3(6.84f, 4.3841f, 1.0968f);
-                                    temp.transform.GetChild(4).GetChild(1).localRotation = Quaternion.Euler(58.2924f, 189.6045f, 292.3752f);
-                                    continue;
-                                }
-                                temp.transform.GetChild(4).GetChild(j).gameObject.SetActive(false);
+                                if ((j == 1) || (j == 3)) { continue; }
+                                temp.transform.GetChild(i).GetChild(j).gameObject.SetActive(false);
                             }
                             continue;
                         }
@@ -295,11 +288,23 @@ namespace FlatLand
         {
             try
             {
-                PoolManager.instance.ResetPools(Il2Cpp.AssetType.Structure);
+                ResetStructures();
                 GameObject.Destroy(Calls.GameObjects.Gym.Logic.Bounds.SceneBoundaryPlayer.GetGameObject());
                 MelonCoroutines.Start(TurnOffAllExtraRootObjects());
             }
             catch { }
+        }
+
+        private void ResetStructures()
+        {
+            PoolManager.instance.GetPool("Disc").Reset(true);
+            PoolManager.instance.GetPool("Ball").Reset(true);
+            PoolManager.instance.GetPool("Pillar").Reset(true);
+            PoolManager.instance.GetPool("RockCube").Reset(true);
+            PoolManager.instance.GetPool("Wall").Reset(true);
+            PoolManager.instance.GetPool("BoulderBall").Reset(true);
+            PoolManager.instance.GetPool("SmallRock").Reset(true);
+            PoolManager.instance.GetPool("LargeRock").Reset(true);
         }
 
         private void ReLoadGym()
@@ -468,7 +473,8 @@ namespace FlatLand
                 buttonToKillStructures.transform.localRotation = Quaternion.Euler(0f, 180f, 90f);
                 buttonToKillStructures.transform.GetChild(0).gameObject.GetComponent<InteractionButton>().onPressed.AddListener(new System.Action(() =>
                 {
-                    PoolManager.instance.ResetPools(Il2Cpp.AssetType.Structure);
+                    //PoolManager.instance.ResetPools(Il2Cpp.AssetType.Structure);
+                    ResetStructures();
                 }));
                 GameObject shiftstoneSwapper = GameObject.Instantiate(Calls.GameObjects.Gym.Logic.HeinhouserProducts.ShiftstoneQuickswapper.GetGameObject());
                 shiftstoneSwapper.SetActive(true);
