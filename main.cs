@@ -32,7 +32,7 @@ namespace FlatLand
         public override void OnLateInitializeMelon()
         {
             FlatLand.ModName = "FlatLand";
-            FlatLand.ModVersion = "1.6.2";
+            FlatLand.ModVersion = "1.6.3";
             FlatLand.SetFolder("FlatLand");
             FlatLand.AddToList("Map Size", 125, "Determins the size of the FlatLand", new Tags { });
             FlatLand.AddToList("Have Matchmaker", false, 0, "Loads a Matchmaker into FlatLand", new Tags { });
@@ -286,13 +286,18 @@ namespace FlatLand
 
         private void DeloadGym()
         {
+                ResetStructures();
             try
             {
-                ResetStructures();
-                GameObject.Destroy(Calls.GameObjects.Gym.Logic.Bounds.SceneBoundaryPlayer.GetGameObject());
-                MelonCoroutines.Start(TurnOffAllExtraRootObjects());
+                GameObject.Destroy(Calls.GameObjects.Gym.Logic.Bounds.SceneBoundaryStructures.GetGameObject());
             }
             catch { }
+            try
+            {
+                GameObject.Destroy(Calls.GameObjects.Gym.Logic.Bounds.SceneBoundaryPlayer.GetGameObject());
+            }
+            catch { }
+            MelonCoroutines.Start(TurnOffAllExtraRootObjects());
         }
 
         private void ResetStructures()
@@ -473,7 +478,6 @@ namespace FlatLand
                 buttonToKillStructures.transform.localRotation = Quaternion.Euler(0f, 180f, 90f);
                 buttonToKillStructures.transform.GetChild(0).gameObject.GetComponent<InteractionButton>().onPressed.AddListener(new System.Action(() =>
                 {
-                    //PoolManager.instance.ResetPools(Il2Cpp.AssetType.Structure);
                     ResetStructures();
                 }));
                 GameObject shiftstoneSwapper = GameObject.Instantiate(Calls.GameObjects.Gym.Logic.HeinhouserProducts.ShiftstoneQuickswapper.GetGameObject());
