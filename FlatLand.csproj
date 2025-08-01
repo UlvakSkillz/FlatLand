@@ -49,8 +49,9 @@
     <Reference Include="ModUI">
       <HintPath>F:\SteamLibrary\steamapps\common\RUMBLE Modding dlls\ModUI.dll</HintPath>
     </Reference>
-    <Reference Include="RumbleModdingAPI">
-      <HintPath>F:\SteamLibrary\steamapps\common\RUMBLE Modding dlls\RumbleModdingAPI.dll</HintPath>
+    <Reference Include="RumbleModdingAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>F:\SteamLibrary\steamapps\common\RUMBLE\Mods\RumbleModdingAPI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -10,6 +10,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static RumbleModdingAPI.Calls;
+using static RumbleModdingAPI.Calls.GameObjects.Gym.Logic.HeinhouserProducts.MatchConsole;
+using Scene = UnityEngine.SceneManagement.Scene;
 
 namespace FlatLand
 {
@@ -32,7 +35,7 @@ namespace FlatLand
         public override void OnLateInitializeMelon()
         {
             FlatLand.ModName = "FlatLand";
-            FlatLand.ModVersion = "1.6.3";
+            FlatLand.ModVersion = "1.7.0";
             FlatLand.SetFolder("FlatLand");
             FlatLand.AddToList("Map Size", 125, "Determins the size of the FlatLand", new Tags { });
             FlatLand.AddToList("Have Matchmaker", false, 0, "Loads a Matchmaker into FlatLand", new Tags { });
@@ -146,13 +149,13 @@ namespace FlatLand
                     matchmakerBackPanel.transform.localScale = new Vector3(3f, 2.41f, 0.02f);
                     flatLandParent = new GameObject();
                     flatLandParent.name = "FlatLand";
-                    flatLandTextPanel = GameObject.Instantiate(Calls.GameObjects.Gym.Logic.HeinhouserProducts.MatchConsole.RankRelaxControls.GetGameObject().transform.GetChild(17).gameObject);
+                    flatLandTextPanel = GameObject.Instantiate(Calls.GameObjects.Gym.Logic.HeinhouserProducts.MatchConsole.MatchmakingSettings.GetGameObject().transform.GetChild(1).gameObject);
                     flatLandTextPanel.name = "FlatLand Plate";
                     flatLandTextPanel.transform.parent = flatLandParent.transform;
                     flatLandTextPanel.transform.position = new Vector3(7.45f, 1.9f, 10.12f);
                     flatLandTextPanel.transform.rotation = Quaternion.Euler(90f, 122.8f, 0f);
                     flatLandTextPanel.transform.localScale = new Vector3(0.29f, 0.3036f, 0.362f);
-                    GameObject textPanelTextGO = GameObject.Instantiate(Calls.GameObjects.Gym.Logic.HeinhouserProducts.MatchConsole.RankRelaxControls.GetGameObject().transform.GetChild(15).GetChild(6).gameObject);
+                    GameObject textPanelTextGO = GameObject.Instantiate(Calls.GameObjects.Gym.Logic.HeinhouserProducts.MatchConsole.MatchmakingSettings.GetGameObject().transform.GetChild(3).gameObject);
                     textPanelTextGO.transform.parent = flatLandTextPanel.transform;
                     textPanelTextGO.name = "Text";
                     textPanelTextGO.transform.localPosition = new Vector3(0.04f, 0.74f, 0f);
@@ -432,14 +435,14 @@ namespace FlatLand
                 flatLandParent2 = new GameObject();
                 flatLandParent2.name = "FlatLandButtonParent";
                 flatLandParent2.transform.position = new Vector3(-3.8f, 0f, -11.2473f);
-                GameObject returnToGymPlate = GameObject.Instantiate(Calls.GameObjects.Gym.Logic.HeinhouserProducts.MatchConsole.RankRelaxControls.GetGameObject().transform.GetChild(17).gameObject);
+                GameObject returnToGymPlate = GameObject.Instantiate(Calls.GameObjects.Gym.Logic.HeinhouserProducts.MatchConsole.MatchmakingSettings.GetGameObject().transform.GetChild(1).gameObject);
                 returnToGymPlate.name = "FlatLand Plate";
                 returnToGymPlate.transform.parent = flatLandParent2.transform;
                 returnToGymPlate.transform.localPosition = new Vector3(9.09f, 1.1882f, 5.6149f);
                 returnToGymPlate.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
                 returnToGymPlate.transform.localScale = new Vector3(0.29f, 0.3036f, 0.362f);
                 Component.Destroy(returnToGymPlate.GetComponent<BoxCollider>());
-                GameObject textPanelTextGO = GameObject.Instantiate(Calls.GameObjects.Gym.Logic.HeinhouserProducts.MatchConsole.RankRelaxControls.GetGameObject().transform.GetChild(15).GetChild(6).gameObject);
+                GameObject textPanelTextGO = GameObject.Instantiate(Calls.GameObjects.Gym.Logic.HeinhouserProducts.MatchConsole.MatchmakingSettings.GetGameObject().transform.GetChild(3).gameObject);
                 textPanelTextGO.transform.parent = returnToGymPlate.transform;
                 textPanelTextGO.name = "Text";
                 textPanelTextGO.transform.localPosition = new Vector3(0.04f, 0.74f, 0f);
@@ -456,14 +459,14 @@ namespace FlatLand
                 {
                     ReLoadGym();
                 }));
-                GameObject killStructuresPlate = GameObject.Instantiate(Calls.GameObjects.Gym.Logic.HeinhouserProducts.MatchConsole.RankRelaxControls.GetGameObject().transform.GetChild(17).gameObject);
+                GameObject killStructuresPlate = GameObject.Instantiate(Calls.GameObjects.Gym.Logic.HeinhouserProducts.MatchConsole.MatchmakingSettings.GetGameObject().transform.GetChild(1).gameObject);
                 killStructuresPlate.name = "Kill Structures Plate";
                 killStructuresPlate.transform.parent = flatLandParent2.transform;
                 killStructuresPlate.transform.localPosition = new Vector3(9.09f, 1.7882f, 5.4749f);
                 killStructuresPlate.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
                 killStructuresPlate.transform.localScale = new Vector3(0.29f, 0.5f, 0.362f);
                 Component.Destroy(killStructuresPlate.GetComponent<BoxCollider>());
-                GameObject killStructuresTextPanelTextGO = GameObject.Instantiate(Calls.GameObjects.Gym.Logic.HeinhouserProducts.MatchConsole.RankRelaxControls.GetGameObject().transform.GetChild(15).GetChild(6).gameObject);
+                GameObject killStructuresTextPanelTextGO = GameObject.Instantiate(Calls.GameObjects.Gym.Logic.HeinhouserProducts.MatchConsole.MatchmakingSettings.GetGameObject().transform.GetChild(3).gameObject);
                 killStructuresTextPanelTextGO.transform.parent = killStructuresPlate.transform;
                 killStructuresTextPanelTextGO.name = "Text";
                 killStructuresTextPanelTextGO.transform.localPosition = new Vector3(0.04f, 0.74f, 0f);
