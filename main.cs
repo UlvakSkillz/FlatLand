@@ -35,7 +35,7 @@ namespace FlatLand
         public override void OnLateInitializeMelon()
         {
             FlatLand.ModName = "FlatLand";
-            FlatLand.ModVersion = "1.7.0";
+            FlatLand.ModVersion = "1.7.1";
             FlatLand.SetFolder("FlatLand");
             FlatLand.AddToList("Map Size", 125, "Determins the size of the FlatLand", new Tags { });
             FlatLand.AddToList("Have Matchmaker", false, 0, "Loads a Matchmaker into FlatLand", new Tags { });
@@ -57,6 +57,9 @@ namespace FlatLand
             autoLoad = (bool)FlatLand.Settings[4].SavedValue;
             UI.instance.UI_Initialized += UIInit;
             Calls.onMapInitialized += SceneInit;
+            dontDisableGameObject.Add("UniverseLibBehaviour");
+            dontDisableGameObject.Add("ExplorerBehaviour");
+            dontDisableGameObject.Add("SteamManager");
             dontDisableGameObject.Add("LanguageManager");
             dontDisableGameObject.Add("PhotonMono");
             dontDisableGameObject.Add("Game Instance");
@@ -71,6 +74,7 @@ namespace FlatLand
             dontDisableGameObject.Add("VoiceLogger");
             dontDisableGameObject.Add("Player Controller(Clone)");
             dontDisableGameObject.Add("Health");
+            dontDisableGameObject.Add("New Game Object");
         }
 
         private void Save()
@@ -107,7 +111,7 @@ namespace FlatLand
         {
             if (flatLandActive)
             {
-                float playerY = PlayerManager.instance.localPlayer.Controller.gameObject.transform.GetChild(5).GetChild(5).GetChild(0).position.y;
+                float playerY = PlayerManager.instance.localPlayer.Controller.gameObject.transform.GetChild(2).GetChild(3).position.y;
                 if (!respawning && (playerY <= -10))
                 {
                     respawning = true;
@@ -229,7 +233,7 @@ namespace FlatLand
             GameObject[] allGameObjects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
             foreach (GameObject temp in ddolGameObjects)
             {
-                if (temp.active && !dontDisableGameObject.Contains(temp.name))
+                if (temp.activeSelf && !dontDisableGameObject.Contains(temp.name))
                 {
                     temp.SetActive(false);
                     DisabledDDOLGameObjects.Add(temp);
@@ -237,7 +241,7 @@ namespace FlatLand
             }
             foreach (GameObject temp in allGameObjects)
             {
-                if (temp.active && !dontDisableGameObject.Contains(temp.name))
+                if (temp.activeSelf && !dontDisableGameObject.Contains(temp.name))
                 {
                     temp.SetActive(false);
                 }
