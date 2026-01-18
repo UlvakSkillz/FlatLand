@@ -11,8 +11,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static RumbleModdingAPI.Calls;
-using static RumbleModdingAPI.Calls.GameObjects.Gym.LOGIC.Heinhouserproducts.MatchConsole;
 using Scene = UnityEngine.SceneManagement.Scene;
 
 namespace FlatLand
@@ -25,7 +23,7 @@ namespace FlatLand
         private bool flatLandActive = false;
         private bool respawning = false;
         private GameObject buttonToSwaptoFlatLand, flatLandTextPanel, flatLandParent;
-        private List<string> dontDisableGameObject = new List<string>();
+        public static List<string> dontDisableGameObject = new List<string>();
         private List<GameObject> DisabledDDOLGameObjects = new List<GameObject>();
         private GameObject landParent, plane, measureParent, flatLandParent2, matchmaker, regionBoard;
         UI UI = UI.instance;
@@ -36,7 +34,7 @@ namespace FlatLand
         public override void OnLateInitializeMelon()
         {
             FlatLand.ModName = "FlatLand";
-            FlatLand.ModVersion = "1.8.1";
+            FlatLand.ModVersion = "1.8.3";
             FlatLand.SetFolder("FlatLand");
             FlatLand.AddToList("Map Size", 125, "Determins the size of the FlatLand", new Tags { });
             FlatLand.AddToList("Have Matchmaker", false, 0, "Loads a Matchmaker into FlatLand", new Tags { });
