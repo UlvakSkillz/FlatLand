@@ -34,7 +34,7 @@ namespace FlatLand
         public override void OnLateInitializeMelon()
         {
             FlatLand.ModName = "FlatLand";
-            FlatLand.ModVersion = "1.9.1";
+            FlatLand.ModVersion = "1.9.2";
             FlatLand.SetFolder("FlatLand");
             FlatLand.AddToList("Map Size", 125, "Determins the size of the FlatLand", new Tags { });
             FlatLand.AddToList("Have Matchmaker", false, 0, "Loads a Matchmaker into FlatLand", new Tags { });
@@ -137,7 +137,10 @@ namespace FlatLand
             {
                 for (int i = 0; i < cameras.Length; i++)
                 {
-                    cameras[i].useOcclusionCulling = cameraOcclusionBeforeEditValues[i];
+                    if (flatLandActive && (cameras != null) && (cameras[i] != null) && (cameraOcclusionBeforeEditValues != null))
+                    {
+                        cameras[i].useOcclusionCulling = cameraOcclusionBeforeEditValues[i];
+                    }
                 }
                 ReactivateDDOLObjects();
                 flatLandActive = false;
